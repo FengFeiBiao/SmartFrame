@@ -1,0 +1,2 @@
+include ':app',':smartframework'
+rootProject.name = "SmartFrame"

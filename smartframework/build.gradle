@@ -1,0 +1,68 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+    dataBinding {
+        enabled true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    //-------------- Androidx,google_AAC start-----------------------------
+    api rootProject.ext.dependencies["appcompat"]
+    api rootProject.ext.dependencies["material"]
+    api rootProject.ext.dependencies["recyclerview"]
+    api rootProject.ext.dependencies["constraint-layout"]
+    api rootProject.ext.dependencies["navigation-fragment"]
+    api rootProject.ext.dependencies["navigation-ui"]
+    api rootProject.ext.dependencies["lifecycle-extensions"] // ViewModel and LiveData
+    api 'androidx.lifecycle:lifecycle-common-java8:2.2.0'//Lifecycle
+//    api 'androidx.legacy:legacy-support-v4:1.0.0'//未知用途
+//    api 'androidx.annotation:annotation:1.1.0'//依赖注入
+    //-------------Androidx,google_AAC finish-----------------------------
+
+    //KTX 扩展程序
+    api 'androidx.core:core-ktx:1.2.0'
+    //rxjava
+    api rootProject.ext.dependencies.rxjava
+    api rootProject.ext.dependencies.rxandroid
+    //Glide
+    api rootProject.ext.dependencies["glide"]
+    annotationProcessor rootProject.ext.dependencies["glide-compiler"]
+    //键值对组件
+    api rootProject.ext.dependencies["MMKV"]
+}
